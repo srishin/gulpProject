@@ -21,7 +21,8 @@ var gulp        = require('gulp'),
     gulpsync    = require('gulp-sync')(gulp),
     ngAnnotate  = require('gulp-ng-annotate'),
     sourcemaps  = require('gulp-sourcemaps'),
-    PluginError = gutil.PluginError;
+    PluginError = gutil.PluginError,
+    webserver = require('gulp-webserver');
 
 // LiveReload port. Change it only if there's a conflict
 var lvr_port = 35729;
@@ -319,8 +320,19 @@ gulp.task('watch', function() {
   });
 
 });
-
-
+ //-------------
+ // Srver
+ //-------------
+gulp.task('webserver', function() {
+  gulp.src('..')
+    .pipe(webserver({
+      // path: '..',
+      livereload: true,
+      // directoryListing: true,
+      open: true
+    }));
+});
+gulp.task('serve', ['default','webserver']);
 //---------------
 // DEFAULT TASK
 //---------------
