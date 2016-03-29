@@ -21,7 +21,8 @@ var gulp        = require('gulp'),
     gulpsync    = require('gulp-sync')(gulp),
     ngAnnotate  = require('gulp-ng-annotate'),
     sourcemaps  = require('gulp-sourcemaps'),
-    PluginError = gutil.PluginError;
+    PluginError = gutil.PluginError,
+    webserver = require('gulp-webserver');
 
 // LiveReload port. Change it only if there's a conflict
 var lvr_port = 35729;
@@ -359,6 +360,14 @@ gulp.task('start',[
 
 gulp.task('done', function(){
   console.log('All Done!! You can start editing your code, LiveReload will update your browser after any change..');
+});
+
+gulp.task('serve', function() {
+  gulp.src('..')
+    .pipe(webserver({
+      livereload: true,
+      open: true
+    }));
 });
 
 // Error handler
